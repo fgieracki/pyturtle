@@ -13,7 +13,9 @@ statement:
     | repeatCommand
     | clearCommand
     | listCommand
-    | ifCommand;
+    | ifCommand
+    | whileCommand
+    | functionCommand;
 
 forwardCommand: 'FD' expression ';';
 backwardCommand: 'BK' expression ';';
@@ -26,6 +28,8 @@ repeatCommand: 'REPEAT' expression '[' statement+ ']' ';';
 clearCommand: 'CLEAR' ';';
 listCommand: LIST variable '=' '[' expression (',' expression)* ']' ';';
 ifCommand: 'IF' comparison '[' statement+ ']' ( 'ELSE' '[' statement+ ']' )?;
+whileCommand: 'WHILE' comparison '[' statement+ ']' ';';
+functionCommand: 'TO' functionName '[' variable* ']' statement+ 'END' functionName ';';
 
 comparison:
     expression operator=(EQ | NEQ | LT | LTE | GT | GTE) expression;
@@ -36,13 +40,17 @@ expression:
     | list
     | '(' expression ')'
     | expression operator=(MULT | DIV) expression
-    | expression operator=(PLUS | MINUS) expression;
+    | expression operator=(PLUS | MINUS) expression
+    | functionCall;
+
+functionCall: functionName '(' (expression (',' expression)*)? ')';
 
 list: '[' (expression (',' expression)*)? ']';
 
 color: NUMBER ',' NUMBER ',' NUMBER;
 
 variable: ':' ID;
+functionName: ID;
 
 NUMBER: '-'? INT | FLOAT;
 INT: [0-9]+;
