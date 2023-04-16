@@ -1,9 +1,9 @@
 import math
 
 from antlr4 import *
-from dist.LogoLexer import LogoLexer
-from dist.LogoParser import LogoParser
-from dist.LogoVisitor import LogoVisitor
+from logo.LogoLexer import LogoLexer
+from logo.LogoParser import LogoParser
+from logo.LogoVisitor import LogoVisitor
 
 
 class Turtle:
