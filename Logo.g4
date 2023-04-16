@@ -24,41 +24,42 @@ rightCommand: 'RT' expression ';';
 penUpCommand: 'PU' ';';
 penDownCommand: 'PD' ';';
 setColorCommand: 'SETCOLOR' color ';';
-repeatCommand: 'REPEAT' expression '[' statement+ ']' ';';
+repeatCommand: 'REPEAT' expression LLIST statement+ RLIST ';';
 clearCommand: 'CLEAR' ';';
-listCommand: LIST variable '=' '[' expression (',' expression)* ']' ';';
-ifCommand: 'IF' comparison '[' statement+ ']' ( 'ELSE' '[' statement+ ']' )?;
-whileCommand: 'WHILE' comparison '[' statement+ ']' ';';
-functionCommand: 'TO' functionName '[' variable* ']' statement+ 'END' functionName ';';
+listCommand: variable EQ LLIST expression (',' expression)* RLIST ';';
+ifCommand: 'IF' comparison LLIST statement+ RLIST ( 'ELSE' LLIST statement+ RLIST )?;
+whileCommand: 'WHILE' comparison LLIST statement+ RLIST ';';
+functionCommand: 'TO' functionName LLIST variable* RLIST statement+ 'END' functionName ';';
 
 comparison:
     expression operator=(EQ | NEQ | LT | LTE | GT | GTE) expression;
 
 expression:
-    NUMBER
-    | variable
-    | list
-    | '(' expression ')'
-    | expression operator=(MULT | DIV) expression
-    | expression operator=(PLUS | MINUS) expression
-    | functionCall;
+    NUMBER # DefExp
+    | variable # DefExp
+    | list # DefExp
+    | '(' expression ')' # ParenthesisExpr
+    | expression operator=(MULT | DIV) expression # MultDiv
+    | expression operator=(PLUS | MINUS) expression # PlusMinus
+    | functionCall # DefExp;
 
 functionCall: functionName '(' (expression (',' expression)*)? ')';
 
-list: '[' (expression (',' expression)*)? ']';
+list: LLIST (expression (',' expression)*)? RLIST;
 
 color: NUMBER ',' NUMBER ',' NUMBER;
 
 variable: ':' ID;
 functionName: ID;
 
-NUMBER: '-'? INT | FLOAT;
+NUMBER: MINUS? INT | FLOAT;
 INT: [0-9]+;
 FLOAT: INT '.' [0-9]+;
 
 ID: [a-zA-Z]+;
 
-LIST: '[';
+LLIST: '[';
+RLIST: ']';
 PLUS: '+';
 MINUS: '-';
 MULT: '*';
