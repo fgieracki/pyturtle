@@ -15,7 +15,8 @@ statement:
     | listCommand
     | ifCommand
     | whileCommand
-    | functionCommand;
+    | functionCommand
+    | assignmentCommand;
 
 forwardCommand: 'FD' expression ';';
 backwardCommand: 'BK' expression ';';
@@ -30,6 +31,8 @@ listCommand: variable EQ LLIST expression (',' expression)* RLIST ';';
 ifCommand: 'IF' comparison LLIST statement+ RLIST ( 'ELSE' LLIST statement+ RLIST )?;
 whileCommand: 'WHILE' comparison LLIST statement+ RLIST ';';
 functionCommand: 'TO' functionName LLIST variable* RLIST statement+ 'END' functionName ';';
+assignmentCommand: variable EQ expression ';';
+
 
 comparison:
     expression operator=(EQ | NEQ | LT | LTE | GT | GTE) expression;
