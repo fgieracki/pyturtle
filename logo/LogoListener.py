@@ -1,4 +1,4 @@
-# Generated from Logo.g4 by ANTLR 4.12.0
+# Generated from Logo.g4 by ANTLR 4.10.1
 from antlr4 import *
 if __name__ is not None and "." in __name__:
     from .LogoParser import LogoParser
@@ -89,6 +89,15 @@ class LogoListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by LogoParser#fillColorCommand.
+    def enterFillColorCommand(self, ctx:LogoParser.FillColorCommandContext):
+        pass
+
+    # Exit a parse tree produced by LogoParser#fillColorCommand.
+    def exitFillColorCommand(self, ctx:LogoParser.FillColorCommandContext):
+        pass
+
+
     # Enter a parse tree produced by LogoParser#repeatCommand.
     def enterRepeatCommand(self, ctx:LogoParser.RepeatCommandContext):
         pass
@@ -143,6 +152,15 @@ class LogoListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by LogoParser#assignmentCommand.
+    def enterAssignmentCommand(self, ctx:LogoParser.AssignmentCommandContext):
+        pass
+
+    # Exit a parse tree produced by LogoParser#assignmentCommand.
+    def exitAssignmentCommand(self, ctx:LogoParser.AssignmentCommandContext):
+        pass
+
+
     # Enter a parse tree produced by LogoParser#comparison.
     def enterComparison(self, ctx:LogoParser.ComparisonContext):
         pass
@@ -176,6 +194,15 @@ class LogoListener(ParseTreeListener):
 
     # Exit a parse tree produced by LogoParser#ParenthesisExpr.
     def exitParenthesisExpr(self, ctx:LogoParser.ParenthesisExprContext):
+        pass
+
+
+    # Enter a parse tree produced by LogoParser#AssExp.
+    def enterAssExp(self, ctx:LogoParser.AssExpContext):
+        pass
+
+    # Exit a parse tree produced by LogoParser#AssExp.
+    def exitAssExp(self, ctx:LogoParser.AssExpContext):
         pass
 
 
@@ -230,15 +257,6 @@ class LogoListener(ParseTreeListener):
 
     # Exit a parse tree produced by LogoParser#functionName.
     def exitFunctionName(self, ctx:LogoParser.FunctionNameContext):
-        pass
-
-
-    # Enter a parse tree produced by LogoParser#unknowns.
-    def enterUnknowns(self, ctx:LogoParser.UnknownsContext):
-        pass
-
-    # Exit a parse tree produced by LogoParser#unknowns.
-    def exitUnknowns(self, ctx:LogoParser.UnknownsContext):
         pass
 
 

@@ -10,12 +10,14 @@ statement:
     | penUpCommand
     | penDownCommand
     | setColorCommand
+    | fillColorCommand
     | repeatCommand
     | clearCommand
     | listCommand
     | ifCommand
     | whileCommand
     | functionCommand
+    | functionCall
     | assignmentCommand;
 
 forwardCommand: 'FD' expression ';';
@@ -25,12 +27,13 @@ rightCommand: 'RT' expression ';';
 penUpCommand: 'PU' ';';
 penDownCommand: 'PD' ';';
 setColorCommand: 'SETCOLOR' color ';';
+fillColorCommand: 'FILL' color ';';
 repeatCommand: 'REPEAT' expression LLIST statement+ RLIST ';';
 clearCommand: 'CLEAR' ';';
 listCommand: variable EQ LLIST expression (',' expression)* RLIST ';';
-ifCommand: 'IF' comparison LLIST statement+ RLIST ( 'ELSE' LLIST statement+ RLIST )?;
+ifCommand: 'IF' comparison LLIST ifstat=statement+ RLIST ( 'ELSE' LLIST elsestat=statement+ RLIST )? ';';
 whileCommand: 'WHILE' comparison LLIST statement+ RLIST ';';
-functionCommand: 'TO' functionName LLIST variable* RLIST statement+ 'END' functionName ';';
+functionCommand: 'TO' functionName LLIST variable* RLIST statement+ 'END' ';';
 assignmentCommand: variable EQ expression ';';
 
 
@@ -39,14 +42,13 @@ comparison:
 
 expression:
     NUMBER # DefExp
-    | variable # DefExp
+    | variable # AssExp
     | list # DefExp
     | '(' expression ')' # ParenthesisExpr
     | expression operator=(MULT | DIV) expression # MultDiv
-    | expression operator=(PLUS | MINUS) expression # PlusMinus
-    | functionCall # DefExp;
+    | expression operator=(PLUS | MINUS) expression # PlusMinus;
 
-functionCall: functionName '(' (expression (',' expression)*)? ')';
+functionCall: functionName '(' (expression (',' expression)*)? ')' ';';
 
 list: LLIST (expression (',' expression)*)? RLIST;
 

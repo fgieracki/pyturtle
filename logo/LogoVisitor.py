@@ -1,4 +1,4 @@
-# Generated from Logo.g4 by ANTLR 4.12.0
+# Generated from Logo.g4 by ANTLR 4.10.1
 from antlr4 import *
 if __name__ is not None and "." in __name__:
     from .LogoParser import LogoParser
@@ -54,6 +54,11 @@ class LogoVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by LogoParser#fillColorCommand.
+    def visitFillColorCommand(self, ctx:LogoParser.FillColorCommandContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by LogoParser#repeatCommand.
     def visitRepeatCommand(self, ctx:LogoParser.RepeatCommandContext):
         return self.visitChildren(ctx)
@@ -84,6 +89,11 @@ class LogoVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by LogoParser#assignmentCommand.
+    def visitAssignmentCommand(self, ctx:LogoParser.AssignmentCommandContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by LogoParser#comparison.
     def visitComparison(self, ctx:LogoParser.ComparisonContext):
         return self.visitChildren(ctx)
@@ -101,6 +111,11 @@ class LogoVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by LogoParser#ParenthesisExpr.
     def visitParenthesisExpr(self, ctx:LogoParser.ParenthesisExprContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by LogoParser#AssExp.
+    def visitAssExp(self, ctx:LogoParser.AssExpContext):
         return self.visitChildren(ctx)
 
 
@@ -131,11 +146,6 @@ class LogoVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by LogoParser#functionName.
     def visitFunctionName(self, ctx:LogoParser.FunctionNameContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by LogoParser#unknowns.
-    def visitUnknowns(self, ctx:LogoParser.UnknownsContext):
         return self.visitChildren(ctx)
 
 
