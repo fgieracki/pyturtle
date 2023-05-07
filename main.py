@@ -273,7 +273,7 @@ if __name__ == "__main__":
     icon = ImageTk.PhotoImage(base_icon)
     gui_turtle = canvas.create_image(size // 2, size // 2, image=icon)
 
-    turtle = Turtle(size // 2, size // 2, canvas, gui_turtle, icon)
+    turtle = Turtle(size // 2, size // 2, canvas, gui_turtle, base_icon)
 
     while True:
         event, values = window.read()
