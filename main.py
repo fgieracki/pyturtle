@@ -235,13 +235,15 @@ if __name__ == "__main__":
     canvas = window['-CANVAS-'].TKCanvas
 
     # Show turtle
-    canvas.create_oval(turtle.x - 5, turtle.y - 5, turtle.x + 5, turtle.y + 5, fill='black')
+    gui_turtle = canvas.create_oval(turtle.x - 5, turtle.y - 5, turtle.x + 5, turtle.y + 5, fill='black')
 
     while True:
         event, values = window.read()
         if event == sg.WIN_CLOSED or event == 'Exit':
             break
         elif event == 'Push':
+            old_x, old_y = turtle.x, turtle.y
+
             data = InputStream(values['-INPUT-'].upper())
 
             # lexer
@@ -255,5 +257,5 @@ if __name__ == "__main__":
             visitor = MyVisitor()
             output = visitor.visit(tree)
             # print(output)
-            canvas.create_oval(turtle.x - 5, turtle.y - 5, turtle.x + 5, turtle.y + 5, fill='black')
+            canvas.move(gui_turtle, turtle.x - old_x, turtle.y - old_y)
     window.close()
