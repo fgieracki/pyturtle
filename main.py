@@ -1,4 +1,5 @@
 import math
+import time
 
 from PIL import Image
 import PySimpleGUI as sg
@@ -26,25 +27,26 @@ class Turtle:
         self.y = y
         self.canvas = canvas
         self.gui = gui
-        self.icon = icon
+        self.base_icon = icon
+        self.icon = None
 
     def __add__(self, value):
-        old_x = self.x
-        old_y = self.y
+        self.old_x = self.x
+        self.old_y = self.y
         self.x += value * round(math.sin(math.radians(self.angle)), 4)
         self.y += value * round(math.cos(math.radians(self.angle)), 4)
         if self.pen:
-            canvas.create_line(old_x, old_y, self.x, self.y, fill=self.get_color(), width=5)
+            self.canvas.create_line(self.old_x, self.old_y, self.x, self.y, fill=self.get_color(), width=1)
         self.render_turtle()
         return self
 
     def __sub__(self, value):
-        old_x = self.x
-        old_y = self.y
+        self.old_x = self.x
+        self.old_y = self.y
         self.x -= value * round(math.sin(math.radians(self.angle)), 4)
         self.y -= value * round(math.cos(math.radians(self.angle)), 4)
         if self.pen:
-            canvas.create_line(old_x, old_y, self.x, self.y, fill=self.get_color(), width=5)
+            self.canvas.create_line(self.old_x, self.old_y, self.x, self.y, fill=self.get_color(), width=1)
         self.render_turtle()
         return self
 
@@ -69,10 +71,13 @@ class Turtle:
         return '#%02x%02x%02x' % tuple(self.color)
 
     def render_turtle(self):
-        base_icon = self.icon.rotate(-self.old_angle + self.angle)
+        self.remove_turtle()
+        base_icon = self.base_icon.rotate(180 + self.angle)
         self.old_angle = self.angle
-        icon = ImageTk.PhotoImage(base_icon)
-        self.gui = self.canvas.create_image(self.x, self.y, image=icon)
+        self.icon = ImageTk.PhotoImage(base_icon)
+        self.gui = self.canvas.create_image(self.x, self.y, image=self.icon)
+        window.read(timeout=0)
+
 
     def remove_turtle(self):
         self.canvas.delete(self.gui)
@@ -86,7 +91,6 @@ class MyVisitor(LogoVisitor):
         global turtle
         # turtle += float(ctx.expression().getText())
         turtle += float(self.visit(ctx.expression()))
-        print(turtle)
         self.commands.append(f"forward {ctx.expression()}")
 
     def visitListCommand(self, ctx):
@@ -94,13 +98,12 @@ class MyVisitor(LogoVisitor):
 
     def visitBackwardCommand(self, ctx):
         global turtle
-        turtle -= float(ctx.expression())
-        print(turtle)
+        turtle -= float(self.visit(ctx.expression()))
         self.commands.append(f"backward {ctx.expression()}")
 
     def visitLeftCommand(self, ctx):
         global turtle
-        turtle.rotate(-float(ctx.expression().getText()))
+        turtle.rotate(-float(self.visit(ctx.expression())))
         self.commands.append(f"left {ctx.expression().getText()}")
 
     def visitRightCommand(self, ctx):
@@ -127,6 +130,12 @@ class MyVisitor(LogoVisitor):
     def visitFillColorCommand(self, ctx):
         fill_colors = [int(c) for c in self.visit(ctx.color()).split(',')]
         return fill_colors
+
+    def visitClearCommand(self, ctx):
+        global turtle
+        global canvas
+        canvas.delete("all")
+        turtle.render_turtle()
 
     def visitRepeatCommand(self, ctx):
         loop_counter = int(ctx.expression().getText())
@@ -159,8 +168,8 @@ class MyVisitor(LogoVisitor):
         global variables
         id = self.visitVariableName(ctx.variable())
         # print(ctx.expression())
-        if local_variables != None:
-            local_variables[id] = self.visit(ctx.expression())
+        if len(local_variables) > 0:
+            local_variables[-1][id] = self.visit(ctx.expression())
         else:
             variables[id] = self.visit(ctx.expression())
 
@@ -170,8 +179,9 @@ class MyVisitor(LogoVisitor):
             for statement in ctx.ifstat.children:
                 self.visit(statement)
         else:
-            for statement in ctx.elsestat.children:
-                self.visit(statement)
+            if ctx.elsestat is not None:
+                for statement in ctx.elsestat.children:
+                    self.visit(statement)
 
     def visitFunctionCommand(self, ctx):
         global functions
@@ -186,17 +196,17 @@ class MyVisitor(LogoVisitor):
         function_name = self.visit(ctx.functionName())
         function_expressions = [float(self.visit(expression)) for expression in ctx.expression()]
 
-        local_variables = variables
+        local_variables.append(variables)
         function_variables, function_statements = functions[function_name]
 
         for idx, var in enumerate(function_variables):
             id_var = self.visitVariableName(var)
-            local_variables[id_var] = function_expressions[idx]
+            local_variables[-1][id_var] = function_expressions[idx]
 
         for statement in function_statements:
             self.visit(statement)
 
-        local_variables = None
+        local_variables.pop()
 
     def visitAssExp(self, ctx):
         return self.visitVariable(ctx.variable())
@@ -220,8 +230,8 @@ class MyVisitor(LogoVisitor):
 
     def visitVariable(self, ctx):
         global variables, local_variables
-        if local_variables is not None:
-            return local_variables[str(ctx.ID())]
+        if len(local_variables) > 0:
+            return local_variables[-1][str(ctx.ID())]
         return variables[str(ctx.ID())]
 
     def visitString(self, ctx):
@@ -254,14 +264,20 @@ if __name__ == "__main__":
 
     size = 800
 
+    input_text = sg.InputText(key='-INPUT-', do_not_clear=False)
+
     layout = [[sg.Canvas(size=(size, size), key='-CANVAS-')],
-              [sg.InputText(key='-INPUT-'), sg.Button('Push'), sg.Button('Exit')],
+              [input_text, sg.Button('Push', bind_return_key=True),
+               sg.Button('Exit')],
               ]
 
     window = sg.Window('PyTurtle', layout, finalize=True)
 
+    window.bind('<Up>', '-UP-')
+    window.bind('<Down>', '-DOWN-')
+
     variables = {}
-    local_variables = None
+    local_variables = []
     functions = {}
 
     canvas = window['-CANVAS-'].TKCanvas
@@ -275,14 +291,17 @@ if __name__ == "__main__":
 
     turtle = Turtle(size // 2, size // 2, canvas, gui_turtle, base_icon)
 
+    command_history = []
+    idx = -1
+
     while True:
         event, values = window.read()
         if event == sg.WIN_CLOSED or event == 'Exit':
             break
         elif event == 'Push':
-            old_x, old_y, old_deg = turtle.x, turtle.y, turtle.angle
-
+            command_history.append(values['-INPUT-'])
             data = InputStream(values['-INPUT-'].upper())
+            idx = -1
 
             # lexer
             lexer = LogoLexer(data)
@@ -294,5 +313,22 @@ if __name__ == "__main__":
             # evaluator
             visitor = MyVisitor()
             output = visitor.visit(tree)
-
+        elif event == '-UP-':
+            if len(command_history) > 0:
+                idx -= 1
+                if idx < -1:
+                    idx = len(command_history) - 1
+                if idx == -1:
+                    input_text.update(value='')
+                else:
+                    input_text.update(value=command_history[idx])
+        elif event == '-DOWN-':
+            if len(command_history) > 0:
+                idx += 1
+                if idx >= len(command_history):
+                    idx = -1
+                if idx == -1:
+                    input_text.update(value='')
+                else:
+                    input_text.update(value=command_history[idx])
     window.close()
