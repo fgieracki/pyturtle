@@ -225,7 +225,7 @@ class MyVisitor(LogoVisitor):
 
 if __name__ == "__main__":
 
-    size = 400
+    size = 800
 
     layout = [[sg.Canvas(size=(size, size), key='-CANVAS-')],
               [sg.InputText(key='-INPUT-'), sg.Button('Push'), sg.Button('Exit')],
@@ -242,22 +242,18 @@ if __name__ == "__main__":
 
     # Show turtle
     icon_filename = 'icon.png'
-    icon = Image.open(icon_filename)
-    icon = icon.resize((20, 20), Image.ANTIALIAS)
-    icon = ImageTk.PhotoImage(icon)
-
+    base_icon = Image.open(icon_filename)
+    base_icon = base_icon.resize((20, 20), Image.ANTIALIAS)
+    icon = ImageTk.PhotoImage(base_icon)
     gui_turtle = canvas.create_image(turtle.x, turtle.y, image=icon)
 
-    # icon = sg.Image(filename=icon_filename, size=(10, 10))
-    # # gui_turtle = canvas.create_image(icon)
-    # gui_turtle = canvas.create_image(turtle.x, turtle.y, image=icon_filename)
 
     while True:
         event, values = window.read()
         if event == sg.WIN_CLOSED or event == 'Exit':
             break
         elif event == 'Push':
-            old_x, old_y = turtle.x, turtle.y
+            old_x, old_y, old_deg = turtle.x, turtle.y, turtle.angle
 
             data = InputStream(values['-INPUT-'].upper())
 
@@ -273,7 +269,12 @@ if __name__ == "__main__":
             output = visitor.visit(tree)
 
             canvas.create_line(old_x, old_y, turtle.x, turtle.y, fill=turtle.get_color(), width=5)
-            canvas.move(gui_turtle, turtle.x - old_x, turtle.y - old_y)
-            canvas.tag_raise(gui_turtle)
+            canvas.delete(gui_turtle)
+
+            base_icon = base_icon.rotate(turtle.angle - old_deg)
+            icon = ImageTk.PhotoImage(base_icon)
+            gui_turtle = canvas.create_image(turtle.x, turtle.y, image=icon)
+
+            gui_turtle = canvas.create_image(turtle.x, turtle.y, image=icon)
 
     window.close()
