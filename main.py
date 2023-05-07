@@ -11,7 +11,7 @@ from logo.LogoVisitor import LogoVisitor
 class Turtle:
     x = 0
     y = 0
-    angle = 0
+    angle = 180
     pen = True
     color = [0, 0, 0]
     def __init__(self, x, y):
@@ -256,6 +256,8 @@ if __name__ == "__main__":
             # evaluator
             visitor = MyVisitor()
             output = visitor.visit(tree)
-            # print(output)
+
+            canvas.create_line(old_x, old_y, turtle.x, turtle.y, fill='red', width=5)
             canvas.move(gui_turtle, turtle.x - old_x, turtle.y - old_y)
+
     window.close()
