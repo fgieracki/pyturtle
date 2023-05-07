@@ -1,11 +1,12 @@
 import math
+import PySimpleGUI as sg
 
 from antlr4 import *
+
 
 from logo.LogoLexer import LogoLexer
 from logo.LogoParser import LogoParser
 from logo.LogoVisitor import LogoVisitor
-
 
 class Turtle:
     x = 0
@@ -217,22 +218,42 @@ class MyVisitor(LogoVisitor):
 
 
 if __name__ == "__main__":
-    # turtle
-    turtle = Turtle()
+
+    size = 400
+
+    layout = [[sg.Canvas(size=(size, size), key='-CANVAS-')],
+              [sg.InputText(key='-INPUT-'), sg.Button('Push'), sg.Button('Exit')],
+              ]
+
+    window = sg.Window('PyTurtle', layout, finalize=True)
+
+    turtle = Turtle(size // 2, size // 2)
     variables = {}
     local_variables = None
     functions = {}
-    while True:
-        data = InputStream(input(">>> ").upper())
 
-        # lexer
-        lexer = LogoLexer(data)
-        stream = CommonTokenStream(lexer)
-        # parser
-        parser = LogoParser(stream)
-        # parser.addErrorListener(CustomErrorListener())
-        tree = parser.program()
-        # evaluator
-        visitor = MyVisitor()
-        output = visitor.visit(tree)
-        # print(output)
+    canvas = window['-CANVAS-'].TKCanvas
+
+    # Show turtle
+    canvas.create_oval(turtle.x - 5, turtle.y - 5, turtle.x + 5, turtle.y + 5, fill='black')
+
+    while True:
+        event, values = window.read()
+        if event == sg.WIN_CLOSED or event == 'Exit':
+            break
+        elif event == 'Push':
+            data = InputStream(values['-INPUT-'].upper())
+
+            # lexer
+            lexer = LogoLexer(data)
+            stream = CommonTokenStream(lexer)
+            # parser
+            parser = LogoParser(stream)
+
+            tree = parser.program()
+            # evaluator
+            visitor = MyVisitor()
+            output = visitor.visit(tree)
+            # print(output)
+            canvas.create_oval(turtle.x - 5, turtle.y - 5, turtle.x + 5, turtle.y + 5, fill='black')
+    window.close()
