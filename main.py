@@ -259,5 +259,6 @@ if __name__ == "__main__":
 
             canvas.create_line(old_x, old_y, turtle.x, turtle.y, fill='red', width=5)
             canvas.move(gui_turtle, turtle.x - old_x, turtle.y - old_y)
+            canvas.tag_raise(gui_turtle)
 
     window.close()
