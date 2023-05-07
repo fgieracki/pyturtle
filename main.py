@@ -43,6 +43,9 @@ class Turtle:
     def set_color(self, r: int, g: int, b: int):
         self.color = [r % 256, g % 256, b % 256]
 
+    def get_color(self):
+        return '#%02x%02x%02x' % tuple(self.color)
+
 
 class MyVisitor(LogoVisitor):
     def __init__(self):
@@ -235,7 +238,9 @@ if __name__ == "__main__":
     canvas = window['-CANVAS-'].TKCanvas
 
     # Show turtle
-    gui_turtle = canvas.create_oval(turtle.x - 5, turtle.y - 5, turtle.x + 5, turtle.y + 5, fill='black')
+    icon_filename = 'icon.png'
+    icon = sg.Image(filename=icon_filename, size=(10, 10))
+    gui_turtle = canvas.create_image(icon)
 
     while True:
         event, values = window.read()
@@ -257,7 +262,7 @@ if __name__ == "__main__":
             visitor = MyVisitor()
             output = visitor.visit(tree)
 
-            canvas.create_line(old_x, old_y, turtle.x, turtle.y, fill='red', width=5)
+            canvas.create_line(old_x, old_y, turtle.x, turtle.y, fill=turtle.get_color(), width=5)
             canvas.move(gui_turtle, turtle.x - old_x, turtle.y - old_y)
             canvas.tag_raise(gui_turtle)
 
