@@ -1,5 +1,8 @@
 import math
+
+from PIL import Image
 import PySimpleGUI as sg
+from PIL import ImageTk
 
 from antlr4 import *
 
@@ -239,8 +242,15 @@ if __name__ == "__main__":
 
     # Show turtle
     icon_filename = 'icon.png'
-    icon = sg.Image(filename=icon_filename, size=(10, 10))
-    gui_turtle = canvas.create_image(icon)
+    icon = Image.open(icon_filename)
+    icon = icon.resize((20, 20), Image.ANTIALIAS)
+    icon = ImageTk.PhotoImage(icon)
+
+    gui_turtle = canvas.create_image(turtle.x, turtle.y, image=icon)
+
+    # icon = sg.Image(filename=icon_filename, size=(10, 10))
+    # # gui_turtle = canvas.create_image(icon)
+    # gui_turtle = canvas.create_image(turtle.x, turtle.y, image=icon_filename)
 
     while True:
         event, values = window.read()
