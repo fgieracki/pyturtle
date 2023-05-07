@@ -13,6 +13,9 @@ class Turtle:
     angle = 0
     pen = True
     color = [0, 0, 0]
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
 
     def __add__(self, value):
         self.x += value * round(math.sin(math.radians(self.angle)), 4)
