@@ -41,7 +41,7 @@ class Turtle:
         return f'{self.x} {self.y}, color: {self.color}'
 
     def rotate(self, angle):
-        self.angle += angle
+        self.angle -= angle
 
     def set_color(self, r: int, g: int, b: int):
         self.color = [r % 256, g % 256, b % 256]
@@ -271,7 +271,7 @@ if __name__ == "__main__":
             canvas.create_line(old_x, old_y, turtle.x, turtle.y, fill=turtle.get_color(), width=5)
             canvas.delete(gui_turtle)
 
-            base_icon = base_icon.rotate(turtle.angle - old_deg)
+            base_icon = base_icon.rotate(-old_deg + turtle.angle)
             icon = ImageTk.PhotoImage(base_icon)
             gui_turtle = canvas.create_image(turtle.x, turtle.y, image=icon)
 
