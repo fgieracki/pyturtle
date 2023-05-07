@@ -15,20 +15,37 @@ class Turtle:
     x = 0
     y = 0
     angle = 180
+    old_x = 0
+    old_y = 0
+    old_angle = 180
     pen = True
     color = [0, 0, 0]
-    def __init__(self, x, y):
+
+    def __init__(self, x, y, canvas, gui, icon):
         self.x = x
         self.y = y
+        self.canvas = canvas
+        self.gui = gui
+        self.icon = icon
 
     def __add__(self, value):
+        old_x = self.x
+        old_y = self.y
         self.x += value * round(math.sin(math.radians(self.angle)), 4)
         self.y += value * round(math.cos(math.radians(self.angle)), 4)
+        if self.pen:
+            canvas.create_line(old_x, old_y, self.x, self.y, fill=self.get_color(), width=5)
+        self.render_turtle()
         return self
 
     def __sub__(self, value):
+        old_x = self.x
+        old_y = self.y
         self.x -= value * round(math.sin(math.radians(self.angle)), 4)
         self.y -= value * round(math.cos(math.radians(self.angle)), 4)
+        if self.pen:
+            canvas.create_line(old_x, old_y, self.x, self.y, fill=self.get_color(), width=5)
+        self.render_turtle()
         return self
 
     def pen_up(self):
@@ -41,7 +58,9 @@ class Turtle:
         return f'{self.x} {self.y}, color: {self.color}'
 
     def rotate(self, angle):
+        self.old_angle = self.angle
         self.angle -= angle
+        self.render_turtle()
 
     def set_color(self, r: int, g: int, b: int):
         self.color = [r % 256, g % 256, b % 256]
@@ -49,6 +68,14 @@ class Turtle:
     def get_color(self):
         return '#%02x%02x%02x' % tuple(self.color)
 
+    def render_turtle(self):
+        base_icon = self.icon.rotate(-self.old_angle + self.angle)
+        self.old_angle = self.angle
+        icon = ImageTk.PhotoImage(base_icon)
+        self.gui = self.canvas.create_image(self.x, self.y, image=icon)
+
+    def remove_turtle(self):
+        self.canvas.delete(self.gui)
 
 class MyVisitor(LogoVisitor):
     def __init__(self):
@@ -233,7 +260,6 @@ if __name__ == "__main__":
 
     window = sg.Window('PyTurtle', layout, finalize=True)
 
-    turtle = Turtle(size // 2, size // 2)
     variables = {}
     local_variables = None
     functions = {}
@@ -243,10 +269,11 @@ if __name__ == "__main__":
     # Show turtle
     icon_filename = 'icon.png'
     base_icon = Image.open(icon_filename)
-    base_icon = base_icon.resize((20, 20), Image.ANTIALIAS)
+    base_icon = base_icon.resize((60, 60), Image.ANTIALIAS)
     icon = ImageTk.PhotoImage(base_icon)
-    gui_turtle = canvas.create_image(turtle.x, turtle.y, image=icon)
+    gui_turtle = canvas.create_image(size // 2, size // 2, image=icon)
 
+    turtle = Turtle(size // 2, size // 2, canvas, gui_turtle, icon)
 
     while True:
         event, values = window.read()
@@ -267,14 +294,5 @@ if __name__ == "__main__":
             # evaluator
             visitor = MyVisitor()
             output = visitor.visit(tree)
-
-            canvas.create_line(old_x, old_y, turtle.x, turtle.y, fill=turtle.get_color(), width=5)
-            canvas.delete(gui_turtle)
-
-            base_icon = base_icon.rotate(-old_deg + turtle.angle)
-            icon = ImageTk.PhotoImage(base_icon)
-            gui_turtle = canvas.create_image(turtle.x, turtle.y, image=icon)
-
-            gui_turtle = canvas.create_image(turtle.x, turtle.y, image=icon)
 
     window.close()
