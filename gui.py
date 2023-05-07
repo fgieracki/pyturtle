@@ -3,7 +3,8 @@ import PySimpleGUI as sg
 size = 400
 
 layout = [[sg.Canvas(size=(size, size), key='-CANVAS-')],
-          [sg.Button('Draw'), sg.Button('Exit')]]
+          [sg.InputText(key='-INPUT-'), sg.Button('Push'), sg.Button('Exit')],
+          ]
 
 window = sg.Window('PyTurtle', layout)
 
