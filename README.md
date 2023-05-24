@@ -145,7 +145,7 @@ clearCommand: 'CLEAR' ';';
 listCommand: variable EQ LLIST expression (',' expression)* RLIST ';';
 ifCommand: 'IF' comparison LLIST statement+ RLIST ( 'ELSE' LLIST statement+ RLIST )?;
 whileCommand: 'WHILE' comparison LLIST statement+ RLIST ';';
-functionCommand: 'TO' functionName LLIST variable* RLIST statement+ 'END' functionName ';';
+functionCommand: 'TO' functionName LLIST variable* RLIST statement+ 'END' ';';
 assignmentCommand: variable EQ expression ';';
 
 comparison:
