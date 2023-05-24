@@ -194,6 +194,8 @@ WS: [ \t\n\r]+ -> skip;
 
 ### Informacja o stosowanych generatorach skanerów/parserów, pakietach zewnętrznych,
 
+Składnia została napisana w języku ANTLR, wewnętrzna implementacja logiki działania aplikacji została napisana od zera, bez wykorzystania żadnych zewnętrznych bibliotek (np. turtle).
+
 ### Krótka instrukcja obsługi,
 
 ### Przykład
