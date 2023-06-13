@@ -10,7 +10,7 @@ from antlr4 import *
 from logo.LogoLexer import LogoLexer
 from logo.LogoParser import LogoParser
 from logo.LogoVisitor import LogoVisitor
-
+from antlr4.error.ErrorListener import ErrorListener
 
 class Turtle:
     x = 0
@@ -80,6 +80,24 @@ class Turtle:
 
     def remove_turtle(self):
         self.canvas.delete(self.gui)
+
+
+class MyErrorListener( ErrorListener ):
+
+    def __init__(self):
+        super(MyErrorListener, self).__init__()
+
+    def syntaxError(self, recognizer, offendingSymbol, line, column, msg, e):
+        raise Exception("Oh no!!")
+
+    def reportAmbiguity(self, recognizer, dfa, startIndex, stopIndex, exact, ambigAlts, configs):
+        raise Exception("Oh no!!")
+
+    def reportAttemptingFullContext(self, recognizer, dfa, startIndex, stopIndex, conflictingAlts, configs):
+        raise Exception("Oh no!!")
+
+    def reportContextSensitivity(self, recognizer, dfa, startIndex, stopIndex, prediction, configs):
+        raise Exception("Oh no!!")
 
 
 class MyVisitor(LogoVisitor):
@@ -244,6 +262,7 @@ class MyVisitor(LogoVisitor):
     def visitString(self, ctx):
         return ctx.getText()
 
+
     def visitFunctionName(self, ctx):
         return self.visitVariableName(ctx)
 
@@ -312,7 +331,7 @@ if __name__ == "__main__":
             stream = CommonTokenStream(lexer)
             # parser
             parser = LogoParser(stream)
-
+            parser.addErrorListener(MyErrorListener())
             tree = parser.program()
             # evaluator
             visitor = MyVisitor()
