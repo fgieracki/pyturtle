@@ -259,6 +259,11 @@ class MyVisitor(LogoVisitor):
     def visitParenthesisExpr(self, ctx):
         return self.visit(ctx.expression())
 
+    def visitLoadCommand(self, ctx):
+        file_name = str(self.visit(ctx.filename()))
+        print(file_name)
+        return None
+
 
 if __name__ == "__main__":
 
