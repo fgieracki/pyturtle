@@ -154,5 +154,10 @@ class LogoVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by LogoParser#fileName.
+    def visitFileName(self, ctx:LogoParser.FileNameContext):
+        return self.visitChildren(ctx)
+
+
 
 del LogoParser
