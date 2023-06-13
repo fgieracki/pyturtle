@@ -22,8 +22,8 @@ T__20=21
 NUMBER=22
 INT=23
 FLOAT=24
-ID=25
-FILENAME=26
+FILE=25
+ID=26
 LLIST=27
 RLIST=28
 PLUS=29
@@ -36,7 +36,8 @@ LT=35
 LTE=36
 GT=37
 GTE=38
-WS=39
+LOGO=39
+WS=40
 'FD'=1
 ';'=2
 'BK'=3
@@ -70,3 +71,4 @@ WS=39
 '<='=36
 '>'=37
 '>='=38
+'.logo'=39

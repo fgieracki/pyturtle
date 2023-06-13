@@ -184,8 +184,11 @@ class MyVisitor(LogoVisitor):
                     self.visit(statement)
 
     def visitLoadCommand(self, ctx):
-        filename = str(ctx.FILENAME())
+        filename = self.visit(ctx.fileName())
         print(filename)
+
+    def visitFileName(self, ctx):
+        return ctx.getText()
 
     def visitFunctionCommand(self, ctx):
         global functions

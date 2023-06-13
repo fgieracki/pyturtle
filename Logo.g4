@@ -35,7 +35,7 @@ listCommand: variable EQ LLIST expression (',' expression)* RLIST ';';
 ifCommand: 'IF' comparison LLIST ifstat=statement+ RLIST ( 'ELSE' LLIST elsestat=statement+ RLIST )? ';';
 whileCommand: 'WHILE' comparison LLIST statement+ RLIST ';';
 functionCommand: 'TO' functionName LLIST variable* RLIST statement+ 'END' ';';
-loadCommand: 'LOAD' FILENAME ';';
+loadCommand: 'LOAD' fileName 'END' ';';
 assignmentCommand: variable EQ expression ';';
 
 
@@ -58,13 +58,14 @@ color: NUMBER ',' NUMBER ',' NUMBER;
 
 variable: ':' ID;
 functionName: ID;
+fileName: FILE;
 
 NUMBER: MINUS? INT | FLOAT;
 INT: [0-9]+;
 FLOAT: INT '.' [0-9]+;
 
+FILE: ID LOGO;
 ID: [a-zA-Z]+;
-FILENAME: [a-zA-Z]+ '.logo';
 
 LLIST: '[';
 RLIST: ']';
@@ -78,5 +79,6 @@ LT: '<';
 LTE: '<=';
 GT: '>';
 GTE: '>=';
+LOGO: '.logo';
 
 WS: [ \t\n\r]+ -> skip;
