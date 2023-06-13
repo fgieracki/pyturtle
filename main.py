@@ -82,23 +82,22 @@ class Turtle:
         self.canvas.delete(self.gui)
 
 
-class MyErrorListener( ErrorListener ):
+class MyErrorListener(ErrorListener):
 
     def __init__(self):
         super(MyErrorListener, self).__init__()
 
     def syntaxError(self, recognizer, offendingSymbol, line, column, msg, e):
-        raise Exception("Oh no!!")
+        print("Oh no!! Syntax error!!")
 
     def reportAmbiguity(self, recognizer, dfa, startIndex, stopIndex, exact, ambigAlts, configs):
-        raise Exception("Oh no!!")
+        print("Oh no!! Ambiguity error!!")
 
     def reportAttemptingFullContext(self, recognizer, dfa, startIndex, stopIndex, conflictingAlts, configs):
-        raise Exception("Oh no!!")
+        print("Oh no!! Full context error!!")
 
     def reportContextSensitivity(self, recognizer, dfa, startIndex, stopIndex, prediction, configs):
-        raise Exception("Oh no!!")
-
+        print("Oh no!! Context sensitivity error!!")
 
 class MyVisitor(LogoVisitor):
     def __init__(self):
@@ -346,7 +345,7 @@ if __name__ == "__main__":
             stream = CommonTokenStream(lexer)
             # parser
             parser = LogoParser(stream)
-            # parser.addErrorListener(MyErrorListener())
+            parser.addErrorListener(MyErrorListener())
             tree = parser.program()
             # evaluator
             visitor = MyVisitor()
