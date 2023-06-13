@@ -240,9 +240,6 @@ class MyVisitor(LogoVisitor):
     def visitFunctionName(self, ctx):
         return self.visitVariableName(ctx)
 
-    # def visitParenthesis(self, ctx):
-    #     return self.visit(ctx.expression())
-
     def visitMultDiv(self, ctx):
         if (ctx.operator.text == "*"):
             return float(self.visit(ctx.expression(0))) * float(self.visit(ctx.expression(1)))
