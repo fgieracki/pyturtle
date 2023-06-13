@@ -18,6 +18,7 @@ statement:
     | whileCommand
     | functionCommand
     | functionCall
+    | loadCommand
     | assignmentCommand;
 
 forwardCommand: 'FD' expression ';';
@@ -34,6 +35,7 @@ listCommand: variable EQ LLIST expression (',' expression)* RLIST ';';
 ifCommand: 'IF' comparison LLIST ifstat=statement+ RLIST ( 'ELSE' LLIST elsestat=statement+ RLIST )? ';';
 whileCommand: 'WHILE' comparison LLIST statement+ RLIST ';';
 functionCommand: 'TO' functionName LLIST variable* RLIST statement+ 'END' ';';
+loadCommand: 'LOAD' FILENAME ';';
 assignmentCommand: variable EQ expression ';';
 
 
@@ -62,6 +64,7 @@ INT: [0-9]+;
 FLOAT: INT '.' [0-9]+;
 
 ID: [a-zA-Z]+;
+FILENAME: [a-zA-Z0-9_]+'.logo';
 
 LLIST: '[';
 RLIST: ']';
