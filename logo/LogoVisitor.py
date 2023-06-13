@@ -89,6 +89,11 @@ class LogoVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by LogoParser#loadCommand.
+    def visitLoadCommand(self, ctx:LogoParser.LoadCommandContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by LogoParser#assignmentCommand.
     def visitAssignmentCommand(self, ctx:LogoParser.AssignmentCommandContext):
         return self.visitChildren(ctx)

@@ -64,7 +64,7 @@ INT: [0-9]+;
 FLOAT: INT '.' [0-9]+;
 
 ID: [a-zA-Z]+;
-FILENAME: [a-zA-Z0-9_]+'.logo';
+FILENAME: [a-zA-Z]+ '.logo';
 
 LLIST: '[';
 RLIST: ']';

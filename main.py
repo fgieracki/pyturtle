@@ -7,10 +7,10 @@ from PIL import ImageTk
 
 from antlr4 import *
 
-
 from logo.LogoLexer import LogoLexer
 from logo.LogoParser import LogoParser
 from logo.LogoVisitor import LogoVisitor
+
 
 class Turtle:
     x = 0
@@ -78,9 +78,9 @@ class Turtle:
         self.gui = self.canvas.create_image(self.x, self.y, image=self.icon)
         window.read(timeout=0)
 
-
     def remove_turtle(self):
         self.canvas.delete(self.gui)
+
 
 class MyVisitor(LogoVisitor):
     def __init__(self):
@@ -183,6 +183,10 @@ class MyVisitor(LogoVisitor):
                 for statement in ctx.elsestat.children:
                     self.visit(statement)
 
+    def visitLoadCommand(self, ctx):
+        filename = str(ctx.FILENAME())
+        print(filename)
+
     def visitFunctionCommand(self, ctx):
         global functions
         function_name = self.visit(ctx.functionName())
@@ -255,10 +259,6 @@ class MyVisitor(LogoVisitor):
 
     def visitParenthesisExpr(self, ctx):
         return self.visit(ctx.expression())
-
-    def visitLoadCommand(self, ctx):
-        file_name = str(self.visit(ctx.filename()))
-        print(file_name)
 
 
 if __name__ == "__main__":

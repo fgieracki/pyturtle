@@ -237,6 +237,12 @@ class LogoParser ( Parser ):
             if hasattr( listener, "exitProgram" ):
                 listener.exitProgram(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitProgram" ):
+                return visitor.visitProgram(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -353,6 +359,12 @@ class LogoParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitStatement" ):
                 listener.exitStatement(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitStatement" ):
+                return visitor.visitStatement(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -499,6 +511,12 @@ class LogoParser ( Parser ):
             if hasattr( listener, "exitForwardCommand" ):
                 listener.exitForwardCommand(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitForwardCommand" ):
+                return visitor.visitForwardCommand(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -544,6 +562,12 @@ class LogoParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitBackwardCommand" ):
                 listener.exitBackwardCommand(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitBackwardCommand" ):
+                return visitor.visitBackwardCommand(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -591,6 +615,12 @@ class LogoParser ( Parser ):
             if hasattr( listener, "exitLeftCommand" ):
                 listener.exitLeftCommand(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitLeftCommand" ):
+                return visitor.visitLeftCommand(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -637,6 +667,12 @@ class LogoParser ( Parser ):
             if hasattr( listener, "exitRightCommand" ):
                 listener.exitRightCommand(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitRightCommand" ):
+                return visitor.visitRightCommand(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -680,6 +716,12 @@ class LogoParser ( Parser ):
             if hasattr( listener, "exitPenUpCommand" ):
                 listener.exitPenUpCommand(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitPenUpCommand" ):
+                return visitor.visitPenUpCommand(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -720,6 +762,12 @@ class LogoParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitPenDownCommand" ):
                 listener.exitPenDownCommand(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitPenDownCommand" ):
+                return visitor.visitPenDownCommand(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -764,6 +812,12 @@ class LogoParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitSetColorCommand" ):
                 listener.exitSetColorCommand(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitSetColorCommand" ):
+                return visitor.visitSetColorCommand(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -810,6 +864,12 @@ class LogoParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitFillColorCommand" ):
                 listener.exitFillColorCommand(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitFillColorCommand" ):
+                return visitor.visitFillColorCommand(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -869,6 +929,12 @@ class LogoParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitRepeatCommand" ):
                 listener.exitRepeatCommand(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitRepeatCommand" ):
+                return visitor.visitRepeatCommand(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -930,6 +996,12 @@ class LogoParser ( Parser ):
             if hasattr( listener, "exitClearCommand" ):
                 listener.exitClearCommand(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitClearCommand" ):
+                return visitor.visitClearCommand(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -989,6 +1061,12 @@ class LogoParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitListCommand" ):
                 listener.exitListCommand(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitListCommand" ):
+                return visitor.visitListCommand(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1075,6 +1153,12 @@ class LogoParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitIfCommand" ):
                 listener.exitIfCommand(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitIfCommand" ):
+                return visitor.visitIfCommand(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1176,6 +1260,12 @@ class LogoParser ( Parser ):
             if hasattr( listener, "exitWhileCommand" ):
                 listener.exitWhileCommand(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitWhileCommand" ):
+                return visitor.visitWhileCommand(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1259,6 +1349,12 @@ class LogoParser ( Parser ):
             if hasattr( listener, "exitFunctionCommand" ):
                 listener.exitFunctionCommand(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitFunctionCommand" ):
+                return visitor.visitFunctionCommand(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1333,6 +1429,12 @@ class LogoParser ( Parser ):
             if hasattr( listener, "exitLoadCommand" ):
                 listener.exitLoadCommand(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitLoadCommand" ):
+                return visitor.visitLoadCommand(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1385,6 +1487,12 @@ class LogoParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitAssignmentCommand" ):
                 listener.exitAssignmentCommand(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitAssignmentCommand" ):
+                return visitor.visitAssignmentCommand(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1456,6 +1564,12 @@ class LogoParser ( Parser ):
             if hasattr( listener, "exitComparison" ):
                 listener.exitComparison(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitComparison" ):
+                return visitor.visitComparison(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1523,6 +1637,12 @@ class LogoParser ( Parser ):
             if hasattr( listener, "exitDefExp" ):
                 listener.exitDefExp(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitDefExp" ):
+                return visitor.visitDefExp(self)
+            else:
+                return visitor.visitChildren(self)
+
 
     class PlusMinusContext(ExpressionContext):
 
@@ -1550,6 +1670,12 @@ class LogoParser ( Parser ):
             if hasattr( listener, "exitPlusMinus" ):
                 listener.exitPlusMinus(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitPlusMinus" ):
+                return visitor.visitPlusMinus(self)
+            else:
+                return visitor.visitChildren(self)
+
 
     class ParenthesisExprContext(ExpressionContext):
 
@@ -1569,6 +1695,12 @@ class LogoParser ( Parser ):
             if hasattr( listener, "exitParenthesisExpr" ):
                 listener.exitParenthesisExpr(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitParenthesisExpr" ):
+                return visitor.visitParenthesisExpr(self)
+            else:
+                return visitor.visitChildren(self)
+
 
     class AssExpContext(ExpressionContext):
 
@@ -1587,6 +1719,12 @@ class LogoParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitAssExp" ):
                 listener.exitAssExp(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitAssExp" ):
+                return visitor.visitAssExp(self)
+            else:
+                return visitor.visitChildren(self)
 
 
     class MultDivContext(ExpressionContext):
@@ -1614,6 +1752,12 @@ class LogoParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitMultDiv" ):
                 listener.exitMultDiv(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitMultDiv" ):
+                return visitor.visitMultDiv(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1759,6 +1903,12 @@ class LogoParser ( Parser ):
             if hasattr( listener, "exitFunctionCall" ):
                 listener.exitFunctionCall(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitFunctionCall" ):
+                return visitor.visitFunctionCall(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1837,6 +1987,12 @@ class LogoParser ( Parser ):
             if hasattr( listener, "exitList" ):
                 listener.exitList(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitList" ):
+                return visitor.visitList(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1904,6 +2060,12 @@ class LogoParser ( Parser ):
             if hasattr( listener, "exitColor" ):
                 listener.exitColor(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitColor" ):
+                return visitor.visitColor(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1953,6 +2115,12 @@ class LogoParser ( Parser ):
             if hasattr( listener, "exitVariable" ):
                 listener.exitVariable(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitVariable" ):
+                return visitor.visitVariable(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1995,6 +2163,12 @@ class LogoParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitFunctionName" ):
                 listener.exitFunctionName(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitFunctionName" ):
+                return visitor.visitFunctionName(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
