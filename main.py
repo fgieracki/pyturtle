@@ -203,7 +203,19 @@ class MyVisitor(LogoVisitor):
 
     def visitLoadCommand(self, ctx):
         filename = ctx.FILENAME().getText()
-        print(filename)
+        with open(filename.lower(), 'r') as file:
+            for line in file:
+                data = InputStream(line.strip().upper())
+                # lexer
+                lexer = LogoLexer(data)
+                stream = CommonTokenStream(lexer)
+                # parser
+                parser = LogoParser(stream)
+                # parser.addErrorListener(MyErrorListener())
+                tree = parser.program()
+                # evaluator
+                visitor = MyVisitor()
+                output = visitor.visit(tree)
 
 
     def visitFunctionCommand(self, ctx):
