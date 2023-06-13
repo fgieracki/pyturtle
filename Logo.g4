@@ -63,9 +63,10 @@ NUMBER: MINUS? INT | FLOAT;
 INT: [0-9]+;
 FLOAT: INT '.' [0-9]+;
 
-FILENAME: [a-zA-Z]+ '.LOGO';
+FILENAME: [a-zA-Z]+ LOGO;
 ID: [a-zA-Z]+;
 
+LOGO: '.LOGO';
 LLIST: '[';
 RLIST: ']';
 PLUS: '+';
