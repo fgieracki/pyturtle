@@ -152,6 +152,15 @@ class LogoListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by LogoParser#loadCommand.
+    def enterLoadCommand(self, ctx:LogoParser.LoadCommandContext):
+        pass
+
+    # Exit a parse tree produced by LogoParser#loadCommand.
+    def exitLoadCommand(self, ctx:LogoParser.LoadCommandContext):
+        pass
+
+
     # Enter a parse tree produced by LogoParser#assignmentCommand.
     def enterAssignmentCommand(self, ctx:LogoParser.AssignmentCommandContext):
         pass

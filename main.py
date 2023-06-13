@@ -259,7 +259,6 @@ class MyVisitor(LogoVisitor):
     def visitLoadCommand(self, ctx):
         file_name = str(self.visit(ctx.filename()))
         print(file_name)
-        return None
 
 
 if __name__ == "__main__":
