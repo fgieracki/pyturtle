@@ -269,14 +269,5 @@ class LogoListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by LogoParser#fileName.
-    def enterFileName(self, ctx:LogoParser.FileNameContext):
-        pass
-
-    # Exit a parse tree produced by LogoParser#fileName.
-    def exitFileName(self, ctx:LogoParser.FileNameContext):
-        pass
-
-
 
 del LogoParser
