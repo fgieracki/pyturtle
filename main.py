@@ -146,7 +146,7 @@ class MyVisitor(LogoVisitor):
     def visitHeadCommand(self, ctx):
         try:
             global command_history
-            pos = self.visit(ctx.INT())
+            pos = int(ctx.INT().getText())
             data = InputStream(command_history[pos % len(command_history)].strip().upper())
             # lexer
             lexer = LogoLexer(data)
@@ -164,7 +164,7 @@ class MyVisitor(LogoVisitor):
     def visitTailCommand(self, ctx):
         try:
             global command_history
-            pos = self.visit(ctx.INT())
+            pos = int(ctx.INT().getText())
             data = InputStream(command_history[len(command_history) - pos % len(command_history) - 1].strip().upper())
             # lexer
             lexer = LogoLexer(data)
