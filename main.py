@@ -261,6 +261,9 @@ class MyVisitor(LogoVisitor):
     def visitNumber(self, ctx):
         return ctx.getText()
 
+    def visitID(self, ctx):
+        return ctx.getText()
+
     def visitColor(self, ctx):
         return ctx.getText()
 
@@ -278,8 +281,9 @@ class MyVisitor(LogoVisitor):
 
 
     def visitFunctionName(self, ctx):
-        return self.visitVariableName(ctx)
-
+        # print(ctx.getText())
+        # return ctx.getText()
+        return str(ctx.ID())
     def visitMultDiv(self, ctx):
         if (ctx.operator.text == "*"):
             return float(self.visit(ctx.expression(0))) * float(self.visit(ctx.expression(1)))

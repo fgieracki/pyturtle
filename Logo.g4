@@ -58,14 +58,13 @@ color: NUMBER ',' NUMBER ',' NUMBER;
 
 variable: ':' ID;
 functionName: ID;
-fileName: FILENAME LOGO;
+fileName: ID LOGO;
 
 NUMBER: MINUS? INT | FLOAT;
 INT: [0-9]+;
 FLOAT: INT '.' [0-9]+;
 
 
-FILENAME: [a-zA-Z]+;
 ID: [a-zA-Z]+;
 
 LOGO: '.LOGO';
