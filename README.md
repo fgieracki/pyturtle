@@ -215,4 +215,7 @@ WS: [ \t\n\r]+ -> skip;
 ### Przykład
 ![image](https://github.com/fgieracki/pyturtle/assets/48069247/b89d3605-9ad4-43a6-ae75-f9bac167a8f6)
 ![image](https://github.com/fgieracki/pyturtle/assets/48069247/fdd89961-8207-4ace-8957-f1f7174a730e)
+![image](https://github.com/fgieracki/pyturtle/assets/47687092/a04275a6-bf07-4a90-a50f-d3a05ad4daa7)
+![image](https://github.com/fgieracki/pyturtle/assets/47687092/74255bc0-7624-4a69-9b7b-68f978b721f7)
+![image](https://github.com/fgieracki/pyturtle/assets/47687092/f048ea9f-923e-4513-8af3-c9d146d086ff)
 
