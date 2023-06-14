@@ -194,8 +194,18 @@ WS: [ \t\n\r]+ -> skip;
 
 ### Informacja o stosowanych generatorach skanerów/parserów, pakietach zewnętrznych,
 
-Składnia została napisana w języku ANTLR, wewnętrzna implementacja logiki działania aplikacji została napisana od zera, bez wykorzystania żadnych zewnętrznych bibliotek (np. turtle).
+- ANTLR4 - generator parserów, język w którym została napisana składnia
+- ImageTk - GUI
+- dodatkowe mniejsze pakiety wykorzystywane do implementacji logiki takie jak math
+- Cała logika została napisana od zera, bez użycia zewnętrznych bibliotek (takich jak np. turtle)
 
-### Krótka instrukcja obsługi,
+### Krótka instrukcja obsługi
+- Pobranie kodu źródłowego
+- uruchomienie pliku main.py z użyciem interpretera języka python
+- wpisywanie komend w pole tekstowe widoczne w dolnej części GUI
+- w celu ułatwienia korzystania z aplikacji, w przypadku gdy pole tekstowe jest aktywne, strzałki w górę i w dół umożliwiają przechodzenie pomiędzy kolejnymi komendami w historii komend sesji.
 
 ### Przykład
+![image](https://github.com/fgieracki/pyturtle/assets/48069247/b89d3605-9ad4-43a6-ae75-f9bac167a8f6)
+![image](https://github.com/fgieracki/pyturtle/assets/48069247/fdd89961-8207-4ace-8957-f1f7174a730e)
+
