@@ -41,6 +41,7 @@ interpreter języka logo wraz z poprawną obsługą list oraz zwiększonymi funk
 | `ID`      | Identyfikator                         |
 | `NUMBER`  | Liczba                                |
 | `,`       | Przecinek                             |
+| `LOAD`    | Wczytamoe danych z pliku              |
 
 ### Gramatyka przetwarzanego formatu
 
@@ -60,6 +61,7 @@ Symbole terminalne:
 'SETCOLOR'
 'REPEAT'
 'CLEAR'
+'LOAD'
 '='
 '['
 ']'
@@ -100,6 +102,7 @@ ifCommand
 whileCommand
 functionCommand
 assignmentCommand
+loadCommand
 comparison
 expression
 functionCall
@@ -131,6 +134,7 @@ statement:
     | ifCommand
     | whileCommand
     | functionCommand
+    | loadCommand
     | assignmentCommand;
 
 forwardCommand: 'FD' expression ';';
@@ -146,6 +150,7 @@ listCommand: variable EQ LLIST expression (',' expression)* RLIST ';';
 ifCommand: 'IF' comparison LLIST statement+ RLIST ( 'ELSE' LLIST statement+ RLIST )?;
 whileCommand: 'WHILE' comparison LLIST statement+ RLIST ';';
 functionCommand: 'TO' functionName LLIST variable* RLIST statement+ 'END' ';';
+loadCommand: 'LOAD' fileName ';';
 assignmentCommand: variable EQ expression ';';
 
 comparison:
@@ -168,11 +173,13 @@ color: NUMBER ',' NUMBER ',' NUMBER;
 
 variable: ':' ID;
 functionName: ID;
+fileName: FILENAME LOGO;
 
 NUMBER: MINUS? INT | FLOAT;
 INT: [0-9]+;
 FLOAT: INT '.' [0-9]+;
 
+FILENAME: [a-zA-Z]+;
 ID: [a-zA-Z]+;
 
 LLIST: '[';
