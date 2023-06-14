@@ -1,14 +1,18 @@
 # pyturtle
 Pyturtle made for TKiK
 
-### Dane studenta(-ów):
+### 1. Dane studenta(-ów):
 - Adrian Jaśkowiec
 - Filip Gieracki
 
-### Założenia programu
-interpreter języka logo wraz z poprawną obsługą list oraz zwiększonymi funkcjonalnościami
+### 3. Założenia programu
+  - Ogólne cele programu: napisanie języka logo z użyciem ANTLR4
+  - Rodzaj translatora: interpreter
+  - Planowany wynik działania programu: realizacja GUI do obsługi języka LOGO 
+  - Język implementacji: python
+  - Sposób realizacji skanera: ANTLR4
 
-### Spis tokenów
+### 4. Spis tokenów
 
 | Token     | Opis                                  |
 |-----------|---------------------------------------|
@@ -43,7 +47,7 @@ interpreter języka logo wraz z poprawną obsługą list oraz zwiększonymi funk
 | `,`       | Przecinek                             |
 | `LOAD`    | Wczytamoe danych z pliku              |
 
-### Gramatyka przetwarzanego formatu
+### 5. Gramatyka przetwarzanego formatu
 
 Symbol początkowy:
 ```
@@ -199,20 +203,20 @@ WS: [ \t\n\r]+ -> skip;
 
 ```
 
-### Informacja o stosowanych generatorach skanerów/parserów, pakietach zewnętrznych,
+### 6. Informacja o stosowanych generatorach skanerów/parserów, pakietach zewnętrznych,
 
 - ANTLR4 - generator parserów, język w którym została napisana składnia
 - ImageTk - GUI
 - dodatkowe mniejsze pakiety wykorzystywane do implementacji logiki takie jak math
 - Cała logika została napisana od zera, bez użycia zewnętrznych bibliotek (takich jak np. turtle)
 
-### Krótka instrukcja obsługi
+### 7. Krótka instrukcja obsługi
 - Pobranie kodu źródłowego
 - uruchomienie pliku main.py z użyciem interpretera języka python
 - wpisywanie komend w pole tekstowe widoczne w dolnej części GUI
 - w celu ułatwienia korzystania z aplikacji, w przypadku gdy pole tekstowe jest aktywne, strzałki w górę i w dół umożliwiają przechodzenie pomiędzy kolejnymi komendami w historii komend sesji.
 
-### Przykład
+### 8. Przykłady użycia
 ![image](https://github.com/fgieracki/pyturtle/assets/48069247/b89d3605-9ad4-43a6-ae75-f9bac167a8f6)
 ![image](https://github.com/fgieracki/pyturtle/assets/48069247/fdd89961-8207-4ace-8957-f1f7174a730e)
 ![image](https://github.com/fgieracki/pyturtle/assets/47687092/a04275a6-bf07-4a90-a50f-d3a05ad4daa7)
