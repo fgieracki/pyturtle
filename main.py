@@ -289,7 +289,7 @@ class MyVisitor(LogoVisitor):
                     stream = CommonTokenStream(lexer)
                     # parser
                     parser = LogoParser(stream)
-                    # parser.addErrorListener(MyErrorListener())
+                    parser.addErrorListener(MyErrorListener())
                     tree = parser.program()
                     # evaluator
                     visitor = MyVisitor()
