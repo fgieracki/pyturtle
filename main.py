@@ -105,28 +105,43 @@ class MyVisitor(LogoVisitor):
         self.variables = {}
 
     def visitForwardCommand(self, ctx):
-        global turtle
-        # turtle += float(ctx.expression().getText())
-        turtle += float(self.visit(ctx.expression()))
-        self.commands.append(f"forward {ctx.expression()}")
+        try:
+            global turtle
+            # turtle += float(ctx.expression().getText())
+            turtle += float(self.visit(ctx.expression()))
+            self.commands.append(f"forward {ctx.expression()}")
+        except:
+            pass
 
     def visitListCommand(self, ctx):
-        self.commands.append(f"variable {','.join([x.getText() for x in ctx.expression()])}")
+        try:
+            self.commands.append(f"variable {','.join([x.getText() for x in ctx.expression()])}")
+        except:
+            pass
 
     def visitBackwardCommand(self, ctx):
-        global turtle
-        turtle -= float(self.visit(ctx.expression()))
-        self.commands.append(f"backward {ctx.expression()}")
+        try:
+            global turtle
+            turtle -= float(self.visit(ctx.expression()))
+            self.commands.append(f"backward {ctx.expression()}")
+        except:
+            pass
 
     def visitLeftCommand(self, ctx):
-        global turtle
-        turtle.rotate(-float(self.visit(ctx.expression())))
-        self.commands.append(f"left {ctx.expression().getText()}")
+        try:
+            global turtle
+            turtle.rotate(-float(self.visit(ctx.expression())))
+            self.commands.append(f"left {ctx.expression().getText()}")
+        except:
+            pass
 
     def visitRightCommand(self, ctx):
-        global turtle
-        turtle.rotate(float(self.visit(ctx.expression())))
-        self.commands.append(f"right {ctx.expression().getText()}")
+        try:
+            global turtle
+            turtle.rotate(float(self.visit(ctx.expression())))
+            self.commands.append(f"right {ctx.expression().getText()}")
+        except:
+            pass
 
     def visitHeadCommand(self, ctx):
         try:
@@ -165,44 +180,65 @@ class MyVisitor(LogoVisitor):
             pass
 
     def visitPenUpCommand(self, ctx):
-        turtle.pen_up()
-        self.commands.append("pen up")
+        try:
+            turtle.pen_up()
+            self.commands.append("pen up")
+        except:
+            pass
 
     def visitPenDownCommand(self, ctx):
-        turtle.pen_down()
-        self.commands.append("pen down")
+        try:
+            turtle.pen_down()
+            self.commands.append("pen down")
+        except:
+            pass
 
     def visitSetColorCommand(self, ctx):
-        global turtle
+        try:
+            global turtle
 
-        new_colors = [int(c) for c in self.visit(ctx.color()).split(',')]
+            new_colors = [int(c) for c in self.visit(ctx.color()).split(',')]
 
-        turtle.set_color(*new_colors)
-        self.commands.append(f"set color {ctx.color().getText()}")
+            turtle.set_color(*new_colors)
+            self.commands.append(f"set color {ctx.color().getText()}")
+        except:
+            pass
 
     def visitFillColorCommand(self, ctx):
-        fill_colors = [int(c) for c in self.visit(ctx.color()).split(',')]
-        return fill_colors
+        try:
+            fill_colors = [int(c) for c in self.visit(ctx.color()).split(',')]
+            return fill_colors
+        except:
+            pass
 
     def visitClearCommand(self, ctx):
-        global turtle
-        global canvas
-        canvas.delete("all")
-        turtle.render_turtle()
+        try:
+            global turtle
+            global canvas
+            canvas.delete("all")
+            turtle.render_turtle()
+        except:
+            pass
 
     def visitRepeatCommand(self, ctx):
-        loop_counter = int(ctx.expression().getText())
-        for i in range(loop_counter):
-            for statement in ctx.statement():
-                self.visit(statement)
-        self.commands.append(f"repeat {ctx.expression().getText()}")
+        try:
+            loop_counter = int(ctx.expression().getText())
+            for i in range(loop_counter):
+                for statement in ctx.statement():
+                    self.visit(statement)
+            self.commands.append(f"repeat {ctx.expression().getText()}")
+        except:
+            pass
 
     def visitWhileCommand(self, ctx):
-        comparison = self.visit(ctx.comparison())
-        while comparison:
-            for statement in ctx.statement():
-                self.visit(statement)
+        try:
             comparison = self.visit(ctx.comparison())
+            while comparison:
+                for statement in ctx.statement():
+                    self.visit(statement)
+                comparison = self.visit(ctx.comparison())
+        except:
+            pass
 
     def visitComparison(self, ctx):
         left = float(self.visit(ctx.expression(0)))
@@ -218,23 +254,29 @@ class MyVisitor(LogoVisitor):
             return left != right
 
     def visitAssignmentCommand(self, ctx):
-        global variables
-        id = self.visitVariableName(ctx.variable())
-        # print(ctx.expression())
-        if len(local_variables) > 0:
-            local_variables[-1][id] = self.visit(ctx.expression())
-        else:
-            variables[id] = self.visit(ctx.expression())
+        try:
+            global variables
+            id = self.visitVariableName(ctx.variable())
+            # print(ctx.expression())
+            if len(local_variables) > 0:
+                local_variables[-1][id] = self.visit(ctx.expression())
+            else:
+                variables[id] = self.visit(ctx.expression())
+        except:
+            pass
 
     def visitIfCommand(self, ctx):
-        comparison = self.visit(ctx.comparison())
-        if comparison:
-            for statement in ctx.ifstat.children:
-                self.visit(statement)
-        else:
-            if ctx.elsestat is not None:
-                for statement in ctx.elsestat.children:
+        try:
+            comparison = self.visit(ctx.comparison())
+            if comparison:
+                for statement in ctx.ifstat.children:
                     self.visit(statement)
+            else:
+                if ctx.elsestat is not None:
+                    for statement in ctx.elsestat.children:
+                        self.visit(statement)
+        except:
+            pass
 
     def visitLoadCommand(self, ctx):
         try:
@@ -259,12 +301,15 @@ class MyVisitor(LogoVisitor):
         return ctx.getText()
 
     def visitFunctionCommand(self, ctx):
-        global functions
-        function_name = self.visit(ctx.functionName())
-        variables = ctx.variable()
-        statements = ctx.statement()
-        functions[function_name] = (variables, statements)
-        print(functions)
+        try:
+            global functions
+            function_name = self.visit(ctx.functionName())
+            variables = ctx.variable()
+            statements = ctx.statement()
+            functions[function_name] = (variables, statements)
+            print(functions)
+        except:
+            pass
 
     def visitFunctionCall(self, ctx):
         global functions, local_variables, variables
