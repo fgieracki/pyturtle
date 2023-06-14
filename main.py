@@ -128,6 +128,42 @@ class MyVisitor(LogoVisitor):
         turtle.rotate(float(self.visit(ctx.expression())))
         self.commands.append(f"right {ctx.expression().getText()}")
 
+    def visitHeadCommand(self, ctx):
+        try:
+            global command_history
+            pos = self.visit(ctx.INT())
+            data = InputStream(command_history[pos % len(command_history)].strip().upper())
+            # lexer
+            lexer = LogoLexer(data)
+            stream = CommonTokenStream(lexer)
+            # parser
+            parser = LogoParser(stream)
+            # parser.addErrorListener(MyErrorListener())
+            tree = parser.program()
+            # evaluator
+            visitor = MyVisitor()
+            output = visitor.visit(tree)
+        except:
+            pass
+
+    def visitTailCommand(self, ctx):
+        try:
+            global command_history
+            pos = self.visit(ctx.INT())
+            data = InputStream(command_history[len(command_history) - pos % len(command_history) - 1].strip().upper())
+            # lexer
+            lexer = LogoLexer(data)
+            stream = CommonTokenStream(lexer)
+            # parser
+            parser = LogoParser(stream)
+            # parser.addErrorListener(MyErrorListener())
+            tree = parser.program()
+            # evaluator
+            visitor = MyVisitor()
+            output = visitor.visit(tree)
+        except:
+            pass
+
     def visitPenUpCommand(self, ctx):
         turtle.pen_up()
         self.commands.append("pen up")

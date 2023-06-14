@@ -19,6 +19,8 @@ statement:
     | functionCommand
     | functionCall
     | loadCommand
+    | headCommand
+    | tailCommand
     | assignmentCommand;
 
 forwardCommand: 'FD' expression ';';
@@ -37,7 +39,8 @@ whileCommand: 'WHILE' comparison LLIST statement+ RLIST ';';
 functionCommand: 'TO' functionName LLIST variable* RLIST statement+ 'END' ';';
 loadCommand: 'LOAD' fileName ';';
 assignmentCommand: variable EQ expression ';';
-
+headCommand: 'HEAD' INT ';';
+tailCommand: 'TAIL' INT ';';
 
 comparison:
     expression operator=(EQ | NEQ | LT | LTE | GT | GTE) expression;

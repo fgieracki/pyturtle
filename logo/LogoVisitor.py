@@ -1,6 +1,6 @@
-# Generated from Logo.g4 by ANTLR 4.13.0
+# Generated from Logo.g4 by ANTLR 4.10.1
 from antlr4 import *
-if "." in __name__:
+if __name__ is not None and "." in __name__:
     from .LogoParser import LogoParser
 else:
     from LogoParser import LogoParser
@@ -96,6 +96,16 @@ class LogoVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by LogoParser#assignmentCommand.
     def visitAssignmentCommand(self, ctx:LogoParser.AssignmentCommandContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by LogoParser#headCommand.
+    def visitHeadCommand(self, ctx:LogoParser.HeadCommandContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by LogoParser#tailCommand.
+    def visitTailCommand(self, ctx:LogoParser.TailCommandContext):
         return self.visitChildren(ctx)
 
 

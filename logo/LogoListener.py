@@ -1,6 +1,6 @@
-# Generated from Logo.g4 by ANTLR 4.13.0
+# Generated from Logo.g4 by ANTLR 4.10.1
 from antlr4 import *
-if "." in __name__:
+if __name__ is not None and "." in __name__:
     from .LogoParser import LogoParser
 else:
     from LogoParser import LogoParser
@@ -167,6 +167,24 @@ class LogoListener(ParseTreeListener):
 
     # Exit a parse tree produced by LogoParser#assignmentCommand.
     def exitAssignmentCommand(self, ctx:LogoParser.AssignmentCommandContext):
+        pass
+
+
+    # Enter a parse tree produced by LogoParser#headCommand.
+    def enterHeadCommand(self, ctx:LogoParser.HeadCommandContext):
+        pass
+
+    # Exit a parse tree produced by LogoParser#headCommand.
+    def exitHeadCommand(self, ctx:LogoParser.HeadCommandContext):
+        pass
+
+
+    # Enter a parse tree produced by LogoParser#tailCommand.
+    def enterTailCommand(self, ctx:LogoParser.TailCommandContext):
+        pass
+
+    # Exit a parse tree produced by LogoParser#tailCommand.
+    def exitTailCommand(self, ctx:LogoParser.TailCommandContext):
         pass
 
 
